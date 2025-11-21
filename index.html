@@ -7,6 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+
+        h1 {
+            color:red;
+            text-align: center;     
+            font-size: 17px;
+        }
+
+        h2 {
+            color:red;
+            text-align: center; 
+            font-size: 17px;    
+        }
+
+
         * {
             margin: 0;
             padding: 0;
@@ -94,21 +108,50 @@
             }
         }
 
-        @keyframes softGlow {
-            0% { box-shadow: 0 0 15px rgba(255,255,255,0.3); }
-            50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); }
-            100% { box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        @keyframes gentleScale {
+        @keyframes slideInLeft {
             from {
-                transform: scale(0.9);
                 opacity: 0;
+                transform: translateX(-50px);
             }
             to {
-                transform: scale(1);
                 opacity: 1;
+                transform: translateX(0);
             }
+        }
+
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-180deg) scale(0.3);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0) scale(1);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         /* Главный контейнер */
@@ -118,116 +161,31 @@
             margin: 0 auto;
         }
 
-        .main-container.hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-        }
-
-        /* Меню управления */
-        .menu-toggle {
+        /* Кнопка WhatsApp */
+        .whatsapp-button {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            background: linear-gradient(135deg, #ff6b6b, #ff4444);
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
             color: white;
             border: none;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 2rem;
             cursor: pointer;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: smoothPulse 6s ease-in-out infinite;
+            animation: smoothPulse 4s ease-in-out infinite, bounceIn 1.5s ease;
         }
 
-        .menu-toggle:hover {
-            transform: rotate(180deg) scale(1.1);
+        .whatsapp-button:hover {
+            transform: scale(1.1) rotate(10deg);
             animation: none;
-        }
-
-        .side-menu {
-            position: fixed;
-            top: 0;
-            left: -320px;
-            width: 320px;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95), rgba(52, 73, 94, 0.95));
-            box-shadow: 5px 0 25px rgba(0,0,0,0.3);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 999;
-            padding: 80px 25px 25px;
-            overflow-y: auto;
-            backdrop-filter: blur(20px);
-        }
-
-        .side-menu.active {
-            left: 0;
-        }
-
-        .menu-item {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: none;
-            padding: 20px 25px;
-            margin: 12px 0;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: left;
-            width: 100%;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .menu-item:hover {
-            transform: translateX(8px);
-            background: rgba(255,255,255,0.15);
-        }
-
-        .menu-item i {
-            margin-right: 15px;
-            width: 20px;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-
-        .admin-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-            padding-left: 20px;
-            animation: fadeInUp 1s ease;
-        }
-
-        .admin-menu-item {
-            background: rgba(74, 107, 255, 0.3);
-            color: white;
-            border: none;
-            padding: 15px 20px;
-            border-radius: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: left;
-            width: 100%;
-            border: 1px solid rgba(255,255,255,0.1);
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .admin-menu-item:hover {
-            transform: translateX(5px);
-            background: rgba(74, 107, 255, 0.4);
         }
 
         /* Главный заголовок */
@@ -253,7 +211,7 @@
             margin-top: 30px;
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255,255,255,0.3);
-            animation: smoothPulse 8s ease-in-out infinite, softGlow 10s ease-in-out infinite;
+            animation: smoothPulse 8s ease-in-out infinite, bounceIn 1.5s ease;
         }
 
         /* Навигация по сезонам */
@@ -441,7 +399,7 @@
             align-items: center;
             z-index: 2000;
             padding: 20px;
-            animation: gentleScale 0.6s ease;
+            animation: fadeInUp 0.6s ease;
         }
 
         .order-overlay.active {
@@ -457,7 +415,7 @@
             overflow: hidden;
             max-height: 90vh;
             overflow-y: auto;
-            animation: gentleScale 0.7s ease;
+            animation: fadeInUp 0.7s ease;
         }
 
         .order-header {
@@ -582,140 +540,6 @@
             box-shadow: 0 12px 25px rgba(78,205,196,0.35);
         }
 
-        /* Панель администратора */
-        .admin-panel {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            padding: 20px;
-            animation: gentleScale 0.6s ease;
-        }
-
-        .admin-panel.active {
-            display: flex;
-        }
-
-        .admin-container {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            border-radius: 25px;
-            padding: 35px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 35px 80px rgba(0,0,0,0.5);
-            animation: gentleScale 0.7s ease;
-        }
-
-        .admin-title {
-            text-align: center;
-            color: white;
-            margin-bottom: 30px;
-            font-size: clamp(1.8rem, 4vw, 2.3rem);
-            animation: fadeInDown 0.8s ease;
-        }
-
-        .admin-section {
-            display: none;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .admin-section.active {
-            display: block;
-        }
-
-        .admin-buttons-panel {
-            display: grid;
-            gap: 15px;
-            margin-top: 25px;
-            animation: fadeInUp 1s ease;
-        }
-
-        .admin-btn {
-            background: linear-gradient(135deg, #4ecdc4, #44a08d);
-            color: white;
-            border: none;
-            padding: 20px;
-            border-radius: 15px;
-            font-size: clamp(1.1rem, 2vw, 1.2rem);
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .admin-btn:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(78,205,196,0.4);
-        }
-
-        .orders-list {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-top: 20px;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 15px;
-            padding: 15px;
-            background: rgba(255,255,255,0.1);
-            animation: fadeInUp 1s ease;
-        }
-
-        .order-item {
-            background: rgba(255,255,255,0.9);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-left: 5px solid #4ecdc4;
-            position: relative;
-            animation: fadeInUp 0.8s ease;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .order-item:hover {
-            transform: translateX(8px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .delete-order {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: #ff4444;
-            color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .delete-order:hover {
-            transform: scale(1.1) rotate(90deg);
-        }
-
-        .stats {
-            text-align: center;
-            margin-top: 20px;
-            color: white;
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
-            animation: fadeInUp 1s ease;
-        }
-
         /* Сезонные секции */
         .season-section {
             display: none;
@@ -758,19 +582,6 @@
 
         /* Адаптивность для мобильных устройств */
         @media (max-width: 768px) {
-            .menu-toggle {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-                top: 15px;
-                left: 15px;
-            }
-
-            .side-menu {
-                width: 280px;
-                padding: 70px 20px 20px;
-            }
-
             .season-nav {
                 grid-template-columns: 1fr;
                 gap: 12px;
@@ -798,13 +609,16 @@
                 padding: 20px;
             }
 
-            .admin-container {
-                padding: 25px 20px;
+            .order-container {
                 margin: 0 10px;
             }
 
-            .order-container {
-                margin: 0 10px;
+            .whatsapp-button {
+                width: 60px;
+                height: 60px;
+                font-size: 1.7rem;
+                bottom: 20px;
+                right: 20px;
             }
         }
 
@@ -829,14 +643,6 @@
             .form-input {
                 padding: 15px;
             }
-
-            .admin-buttons-panel {
-                gap: 12px;
-            }
-
-            .admin-btn {
-                padding: 18px;
-            }
         }
 
         /* Отключение hover эффектов на тач-устройствах */
@@ -844,27 +650,17 @@
             .season-button:hover,
             .berry-card:hover,
             .order-button:hover,
-            .admin-btn:hover,
-            .menu-item:hover,
-            .admin-menu-item:hover,
-            .close-btn:hover,
-            .delete-order:hover {
+            .close-btn:hover {
                 transform: none;
             }
         }
     </style>
 </head>
 <body class="winter-bg">
-    <!-- Меню управления -->
-    <button class="menu-toggle" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
+    <!-- Кнопка WhatsApp -->
+    <button class="whatsapp-button" onclick="openWhatsApp()">
+        <i class="fab fa-whatsapp"></i>
     </button>
-
-    <div class="side-menu" id="sideMenu">
-        <button class="menu-item" onclick="openAdminPanel()">
-            <i class="fas fa-user-shield"></i>Панель администратора
-        </button>
-    </div>
 
     <!-- Главный контейнер -->
     <div class="main-container" id="mainContainer">
@@ -890,15 +686,19 @@
             </button>
         </div>
 
+        <h1>Выберайте ягоды фрукты по сезону зима\лето\осень\весна</h1>
+
+        <h2>без причины заказы не отправлять!!!</h2>
+
         <!-- ЗИМА -->
         <div id="winter" class="season-section active-season">
             <h2 style="color: #3399ff; text-align: center; margin: 30px 0; font-size: clamp(1.8rem, 4vw, 2.2rem);">❄️ Зимние Ягоды и Фрукты</h2>
             <div class="berries-grid">
                 <div class="berry-card winter-card">
                     <div class="berry-image">🍓</div>
-                    <div class="berry-name">Клубника тепличная</div>
+                    <div class="berry-name">Клубника</div>
                     <div class="season winter-season">Зима</div>
-                    <div class="berry-price">850 руб/ящик</div>
+                    <div class="berry-price">1200 руб/ящик</div>
                     <div class="berry-description">Сочная тепличная клубника из красноярских теплиц</div>
                     <button class="order-button" onclick="openOrderModal('🍓', 'Клубника тепличная', '850 руб/ящик')">🛒 Заказать</button>
                 </div>
@@ -907,7 +707,7 @@
                     <div class="berry-image">🍎</div>
                     <div class="berry-name">Яблоки зимние</div>
                     <div class="season winter-season">Зима</div>
-                    <div class="berry-price">420 руб/кг</div>
+                    <div class="berry-price">1100 руб/ящик</div>
                     <div class="berry-description">Сладкие зимние сорта из садов Красноярского края</div>
                     <button class="order-button" onclick="openOrderModal('🍎', 'Яблоки зимние', '420 руб/кг')">🛒 Заказать</button>
                 </div>
@@ -916,10 +716,29 @@
                     <div class="berry-image">🍊</div>
                     <div class="berry-name">Мандарины</div>
                     <div class="season winter-season">Зима</div>
-                    <div class="berry-price">480 руб/кг</div>
+                    <div class="berry-price">1000 руб/кг</div>
                     <div class="berry-description">Сочные новогодние мандарины для красноярцев</div>
                     <button class="order-button" onclick="openOrderModal('🍊', 'Мандарины', '480 руб/кг')">🛒 Заказать</button>
                 </div>
+
+                <div class="berry-card winter-card">
+                    <div class="berry-image">🍅</div>
+                    <div class="berry-name">Хурма</div>
+                    <div class="season winter-season">Зима</div>
+                    <div class="berry-price">800 руб/кг</div>
+                    <div class="berry-description">Сладкая спелая хурма с южных регионов России</div>
+                    <button class="order-button" onclick="openOrderModal('🍅', 'Хурма', '550 руб/кг')">🛒 Заказать</button>
+                </div>
+
+                <div class="berry-card winter-card">
+                    <div class="berry-image">🍁</div>
+                    <div class="berry-name">Гранат</div>
+                    <div class="season winter-season">Зима</div>
+                    <div class="berry-price">1500 руб/ящик</div>
+                    <div class="berry-description">Сочный спелый большой гранат</div>
+                    <button class="order-button" onclick="openOrderModal('🍅', 'Хурма', '550 руб/кг')">🛒 Заказать</button>
+                </div>
+
             </div>
         </div>
 
@@ -931,7 +750,7 @@
                     <div class="berry-image">🍓</div>
                     <div class="berry-name">Ранняя клубника</div>
                     <div class="season spring-season">Весна</div>
-                    <div class="berry-price">700 руб/ящик</div>
+                    <div class="berry-price">1200 руб/ящик</div>
                     <div class="berry-description">Первая весенняя клубника с красноярских плантаций</div>
                     <button class="order-button" onclick="openOrderModal('🍓', 'Ранняя клубника', '700 руб/ящик')">🛒 Заказать</button>
                 </div>
@@ -940,16 +759,16 @@
                     <div class="berry-image">🍒</div>
                     <div class="berry-name">Черешня ранняя</div>
                     <div class="season spring-season">Весна</div>
-                    <div class="berry-price">600 руб/кг</div>
+                    <div class="berry-price">??? руб/кг</div>
                     <div class="berry-description">Сладкая ранняя черешня для красноярской весны</div>
                     <button class="order-button" onclick="openOrderModal('🍒', 'Черешня ранняя', '600 руб/кг')">🛒 Заказать</button>
                 </div>
 
                 <div class="berry-card spring-card">
-                    <div class="berry-image">🫐</div>
+                    <div class="berry-image">🍇</div>
                     <div class="berry-name">Голубика</div>
                     <div class="season spring-season">Весна</div>
-                    <div class="berry-price">900 руб/кг</div>
+                    <div class="berry-price">??? руб/кг</div>
                     <div class="berry-description">Лесная голубика из сибирских лесов</div>
                     <button class="order-button" onclick="openOrderModal('🫐', 'Голубика', '900 руб/кг')">🛒 Заказать</button>
                 </div>
@@ -964,16 +783,16 @@
                     <div class="berry-image">🍓</div>
                     <div class="berry-name">Клубника полевая</div>
                     <div class="season summer-season">Лето</div>
-                    <div class="berry-price">500 руб/ящик</div>
+                    <div class="berry-price">1200 руб/ящик</div>
                     <div class="berry-description">Ароматная полевая клубника с полей Красноярского края</div>
                     <button class="order-button" onclick="openOrderModal('🍓', 'Клубника полевая', '500 руб/ящик')">🛒 Заказать</button>
                 </div>
 
                 <div class="berry-card summer-card">
-                    <div class="berry-image">🫐</div>
+                    <div class="berry-image"></div>
                     <div class="berry-name">Малина</div>
                     <div class="season summer-season">Лето</div>
-                    <div class="berry-price">800 руб/кг</div>
+                    <div class="berry-price">??? руб/кг</div>
                     <div class="berry-description">Сочная лесная малина из сибирских лесов</div>
                     <button class="order-button" onclick="openOrderModal('🫐', 'Малина', '800 руб/кг')">🛒 Заказать</button>
                 </div>
@@ -982,7 +801,7 @@
                     <div class="berry-image">🍒</div>
                     <div class="berry-name">Вишня</div>
                     <div class="season summer-season">Лето</div>
-                    <div class="berry-price">400 руб/кг</div>
+                    <div class="berry-price">??? руб/кг</div>
                     <div class="berry-description">Темная сладкая вишня из садов Красноярска</div>
                     <button class="order-button" onclick="openOrderModal('🍒', 'Вишня', '400 руб/кг')">🛒 Заказать</button>
                 </div>
@@ -997,7 +816,7 @@
                     <div class="berry-image">🍎</div>
                     <div class="berry-name">Яблоки осенние</div>
                     <div class="season autumn-season">Осень</div>
-                    <div class="berry-price">300 руб/кг</div>
+                    <div class="berry-price">1100 руб/кг</div>
                     <div class="berry-description">Ароматные осенние сорта из садов Красноярского края</div>
                     <button class="order-button" onclick="openOrderModal('🍎', 'Яблоки осенние', '300 руб/кг')">🛒 Заказать</button>
                 </div>
@@ -1006,7 +825,7 @@
                     <div class="berry-image">🍐</div>
                     <div class="berry-name">Груши осенние</div>
                     <div class="season autumn-season">Осень</div>
-                    <div class="berry-price">350 руб/кг</div>
+                    <div class="berry-price">??? руб/кг</div>
                     <div class="berry-description">Сладкие осенние груши для красноярской осени</div>
                     <button class="order-button" onclick="openOrderModal('🍐', 'Груши осенние', '350 руб/кг')">🛒 Заказать</button>
                 </div>
@@ -1015,7 +834,7 @@
                     <div class="berry-image">🌰</div>
                     <div class="berry-name">Облепиха</div>
                     <div class="season autumn-season">Осень</div>
-                    <div class="berry-price">600 руб/кг</div>
+                    <div class="berry-price">??? руб/кг</div>
                     <div class="berry-description">Витаминная облепиха из сибирских лесов</div>
                     <button class="order-button" onclick="openOrderModal('🌰', 'Облепиха', '600 руб/кг')">🛒 Заказать</button>
                 </div>
@@ -1025,15 +844,15 @@
         <div class="contacts">
             <h2 style="margin-bottom: 25px; color: #ff4444; font-size: clamp(1.6rem, 3vw, 2rem);">📞 Заказ и доставка в Красноярске</h2>
             <div style="font-size: clamp(1.1rem, 2vw, 1.3rem); margin-bottom: 25px; line-height: 1.7;">
-                <p>📱 Телефон: <strong>+7 (391) 123-45-67</strong></p>
-                <p>✈️ Telegram: <strong>@krasnoyarsk_berries</strong></p>
-                <p>🚚 Доставка по всему Красноярску</p>
+                <p>📱 Просто нажмите "Заказать" и заполните форму</p>
+                <p>🚚 Заказ придет прямо в WhatsApp</p>
                 <p>⏰ Время работы: 9:00 - 21:00</p>
+                <p>📍 Доставка по всему Красноярску</p>
             </div>
         </div>
 
         <footer>
-            <p>© 2024 Сезонные Ягоды Красноярска 🍓 | Свежие ягоды и фрукты для сибиряков</p>
+            <p>© 2024 Сезонные Ягоды Красноярска 🍓 | Заказы приходят прямо в WhatsApp</p>
         </footer>
     </div>
 
@@ -1054,101 +873,59 @@
                 <form id="orderForm">
                     <div class="form-group">
                         <label class="form-label">👤 Ваше имя:</label>
-                        <input type="text" class="form-input" placeholder="Введите ваше имя" required>
+                        <input type="text" class="form-input" id="customerName" placeholder="Введите ваше имя" required>
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label">📱 Номер телефона:</label>
-                        <input type="tel" class="form-input" placeholder="+7 (999) 123-45-67" required>
+                        <input type="tel" class="form-input" id="customerPhone" placeholder="+7 (999) 123-45-67" required>
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label">🏠 Адрес доставки:</label>
-                        <input type="text" class="form-input" placeholder="Улица, дом, квартира" required>
+                        <input type="text" class="form-input" id="customerAddress" placeholder="Улица, дом, квартира" required>
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label">📦 Количество:</label>
-                        <input type="number" class="form-input" placeholder="1" min="1" max="10" value="1" required>
+                        <input type="number" class="form-input" id="quantity" placeholder="1" min="1" max="10" value="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">💬 Комментарий к заказу (необязательно):</label>
+                        <textarea class="form-input" id="comment" placeholder="Дополнительные пожелания..." rows="3"></textarea>
                     </div>
                     
                     <button type="button" class="submit-btn" onclick="submitOrder()">
-                        ✅ Подтвердить заказ
+                        📱 Отправить заказ в WhatsApp
                     </button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Панель администратора -->
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-container">
-            <h2 class="admin-title">🔧 Панель управления</h2>
-            
-            <div class="admin-section active" id="adminMainSection">
-                <div class="admin-buttons-panel">
-                    <button class="admin-btn" onclick="showTodayOrders()">
-                        <i class="fas fa-clipboard-list"></i> Заказы за день
-                    </button>
-                    <button class="admin-btn" onclick="showStatistics()">
-                        <i class="fas fa-chart-bar"></i> Статистика за день
-                    </button>
-                    <button class="admin-btn" onclick="clearAllOrders()">
-                        <i class="fas fa-trash"></i> Очистить все заказы
-                    </button>
-                    <button class="admin-btn" onclick="closeAdminPanel()">
-                        <i class="fas fa-arrow-left"></i> Назад
-                    </button>
-                </div>
-
-                <div id="ordersList" class="orders-list" style="display: none;">
-                    <!-- Заказы будут здесь -->
-                </div>
-
-                <div id="statistics" class="stats" style="display: none;">
-                    <!-- Статистика будет здесь -->
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Хранилище заказов
-        let orders = JSON.parse(localStorage.getItem('berryOrders')) || [];
-
-        // Функции меню
-        function toggleMenu() {
-            const menu = document.getElementById('sideMenu');
-            menu.classList.toggle('active');
-        }
+        // 🔧 НАСТРОЙКИ
+        const WHATSAPP_NUMBER = '79631833459'; // 🔽 ЗАМЕНИТЕ НА ВАШ НОМЕР (только цифры)
+        
+        let currentProduct = {};
 
         // Функции сезонов
         function showSeason(season) {
-            // Скрыть все секции
             document.querySelectorAll('.season-section').forEach(section => {
                 section.classList.remove('active-season');
             });
-            
-            // Показать выбранную секцию
             document.getElementById(season).classList.add('active-season');
-            
-            // Изменить фон страницы
             document.body.className = season + '-bg';
-            
-            // Прокрутить к началу секции
             document.getElementById(season).scrollIntoView({ behavior: 'smooth' });
         }
 
         // Функции модального окна заказа
-        let currentProduct = {};
-
         function openOrderModal(emoji, name, price) {
             currentProduct = { emoji, name, price };
-            
             document.getElementById('selectedEmoji').textContent = emoji;
             document.getElementById('selectedName').textContent = name;
             document.getElementById('selectedPrice').textContent = price;
-            
             document.getElementById('orderOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1160,158 +937,63 @@
         }
 
         function submitOrder() {
-            const inputs = document.querySelectorAll('.form-input');
-            const name = inputs[0].value;
-            const phone = inputs[1].value;
-            const address = inputs[2].value;
-            const quantity = inputs[3].value;
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const address = document.getElementById('customerAddress').value;
+            const quantity = document.getElementById('quantity').value;
+            const comment = document.getElementById('comment').value;
             
             if (!name || !phone || !address) {
                 alert('Пожалуйста, заполните все обязательные поля!');
                 return;
             }
 
-            const order = {
-                id: Date.now(),
-                product: currentProduct.name,
-                emoji: currentProduct.emoji,
-                price: currentProduct.price,
-                customer: name,
-                phone: phone,
-                address: address,
-                quantity: quantity,
-                date: new Date().toLocaleString('ru-RU'),
-                timestamp: Date.now()
-            };
+            // Формируем сообщение для WhatsApp
+            const message = `🍓 НОВЫЙ ЗАКАЗ ЯГОД 🍓%0A%0A` +
+                           `📦 Товар: ${currentProduct.emoji} ${currentProduct.name}%0A` +
+                           `💰 Цена: ${currentProduct.price}%0A` +
+                           `🔢 Количество: ${quantity}%0A%0A` +
+                           `👤 Клиент: ${name}%0A` +
+                           `📱 Телефон: ${phone}%0A` +
+                           `🏠 Адрес: ${address}%0A` +
+                           (comment ? `💬 Комментарий: ${comment}%0A` : '') +
+                           `⏰ Время заказа: ${new Date().toLocaleString('ru-RU')}%0A%0A` +
+                           `🚀 Срочно обработать заказ!`;
 
-            orders.push(order);
-            localStorage.setItem('berryOrders', JSON.stringify(orders));
+            // Открываем WhatsApp с сообщением
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
             
-            alert('✅ Заказ успешно оформлен! Мы свяжемся с вами в ближайшее время.');
+            // Показываем подтверждение
+            alert('✅ Заказ отправлен! Откроется WhatsApp для подтверждения.');
             closeOrderModal();
         }
 
-        // Функции админ-панели
-        function openAdminPanel() {
-            document.getElementById('adminPanel').classList.add('active');
-            document.getElementById('mainContainer').classList.add('hidden');
-            showAdminMain();
+        // Функция для кнопки WhatsApp
+        function openWhatsApp() {
+            const message = `👋 Здравствуйте! Хочу узнать о наличии ягод и фруктов 🍓`;
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
         }
 
-        function closeAdminPanel() {
-            document.getElementById('adminPanel').classList.remove('active');
-            document.getElementById('mainContainer').classList.remove('hidden');
-            showAdminMain();
-        }
-
-        function showAdminMain() {
-            document.getElementById('ordersList').style.display = 'none';
-            document.getElementById('statistics').style.display = 'none';
-        }
-
-        function showTodayOrders() {
-            const ordersList = document.getElementById('ordersList');
-            const today = new Date().toDateString();
-            
-            const todayOrders = orders.filter(order => 
-                new Date(order.timestamp).toDateString() === today
-            );
-            
-            ordersList.innerHTML = '<h3 style="text-align: center; color: white; margin-bottom: 20px;">📋 Заказы за сегодня</h3>';
-            
-            if (todayOrders.length === 0) {
-                ordersList.innerHTML += '<p style="text-align: center; color: white;">Заказов за сегодня нет</p>';
-            } else {
-                todayOrders.forEach(order => {
-                    const orderElement = document.createElement('div');
-                    orderElement.className = 'order-item';
-                    orderElement.innerHTML = `
-                        <strong>${order.emoji} ${order.product}</strong><br>
-                        👤 ${order.customer}<br>
-                        📱 ${order.phone}<br>
-                        🏠 ${order.address}<br>
-                        📦 Количество: ${order.quantity}<br>
-                        💰 ${order.price}<br>
-                        📅 ${order.date}
-                        <button class="delete-order" onclick="deleteOrder(${order.id})">×</button>
-                    `;
-                    ordersList.appendChild(orderElement);
-                });
-            }
-            
-            document.getElementById('ordersList').style.display = 'block';
-            document.getElementById('statistics').style.display = 'none';
-        }
-
-        function showStatistics() {
-            const today = new Date().toDateString();
-            const todayOrders = orders.filter(order => 
-                new Date(order.timestamp).toDateString() === today
-            );
-            
-            const totalOrders = todayOrders.length;
-            const totalAmount = todayOrders.reduce((sum, order) => {
-                const price = parseInt(order.price);
-                return sum + (isNaN(price) ? 0 : price);
-            }, 0);
-            
-            const statsElement = document.getElementById('statistics');
-            statsElement.innerHTML = `
-                <h3 style="text-align: center; color: white; margin-bottom: 20px;">📊 Статистика за сегодня</h3>
-                <p>Общее количество заказов: <span style="color: #4ecdc4; font-weight: bold;">${totalOrders}</span></p>
-                <p>Общая сумма: <span style="color: #4ecdc4; font-weight: bold;">${totalAmount} руб</span></p>
-                <p>Средний чек: <span style="color: #4ecdc4; font-weight: bold;">${totalOrders > 0 ? Math.round(totalAmount/totalOrders) : 0} руб</span></p>
-            `;
-            
-            document.getElementById('statistics').style.display = 'block';
-            document.getElementById('ordersList').style.display = 'none';
-        }
-
-        function deleteOrder(orderId) {
-            if (confirm('Вы уверены, что хотите удалить этот заказ?')) {
-                orders = orders.filter(order => order.id !== orderId);
-                localStorage.setItem('berryOrders', JSON.stringify(orders));
-                showTodayOrders();
-            }
-        }
-
-        function clearAllOrders() {
-            if (confirm('⚠️ Вы уверены, что хотите удалить ВСЕ заказы? Это действие нельзя отменить!')) {
-                orders = [];
-                localStorage.removeItem('berryOrders');
-                showTodayOrders();
-                showStatistics();
-                alert('Все заказы удалены!');
-            }
-        }
-
-        // Закрытие модальных окон при клике вне их области
+        // Закрытие модального окна при клике вне его области
         document.addEventListener('click', function(event) {
-            const adminPanel = document.getElementById('adminPanel');
             const orderOverlay = document.getElementById('orderOverlay');
-            const sideMenu = document.getElementById('sideMenu');
-            const menuToggle = document.querySelector('.menu-toggle');
-            
-            if (event.target === adminPanel) {
-                closeAdminPanel();
-            }
-            
             if (event.target === orderOverlay) {
                 closeOrderModal();
-            }
-            
-            if (sideMenu.classList.contains('active') && 
-                !sideMenu.contains(event.target) && 
-                !menuToggle.contains(event.target)) {
-                sideMenu.classList.remove('active');
             }
         });
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             showSeason('winter');
-            document.getElementById('adminButtons').style.display = 'flex';
+            
+            if (WHATSAPP_NUMBER === '79130000000') {
+                console.log('⚠️ ВНИМАНИЕ: Замените WHATSAPP_NUMBER на ваш номер телефона в коде!');
+            }
         });
+
+          
     </script>
 </body>
 </html>
